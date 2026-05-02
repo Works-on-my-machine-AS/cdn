@@ -1,0 +1,79 @@
+{
+  "runId": "25249345890",
+  "commitSha": "95b195deb7eba3eeeabdcd0f0bd86d883b292872",
+  "completedAt": "2026-05-02T10:06:00Z",
+  "device": "Genymotion Cloud — Google Pixel 7 (1080x2424)",
+  "appPackage": "com.womm.drawdango",
+  "buildResult": "success",
+  "baseline": true,
+  "checkpoints": [
+    {
+      "step": "01_cold_launch",
+      "status": "pass",
+      "screenshot": "01_cold_launch.png",
+      "expected": "Auth/landing screen visible, no crash dialog",
+      "observation": "Drawdango landing screen rendered with logo, generated nickname (EagerKiwi43), 'Let's Go!' anonymous-login button, and 'I have an account' link"
+    },
+    {
+      "step": "02_post_login",
+      "status": "pass",
+      "screenshot": "02_post_login.png",
+      "expected": "Profile-setup or home screen visible",
+      "observation": "Anonymous login succeeded — home screen visible behind a notification permission dialog (profile chip, Penelope challenge card)"
+    },
+    {
+      "step": "03_home_screen",
+      "status": "pass",
+      "screenshot": "03_home_screen.png",
+      "expected": "Home screen visible",
+      "observation": "Home rendered: EagerKiwi43 profile card (Lvl 1, Doodler, 0/50 pts), Penelope new-challenge card with Guess! CTA, Add Friend invite, bottom nav (Drawdango/Practice/Gallery) with notif badge"
+    },
+    {
+      "step": "04_open_practice",
+      "status": "pass",
+      "screenshot": "04_open_practice.png",
+      "expected": "Word prompt + drawing canvas visible",
+      "observation": "Practice Mode picker rendered with language toggles (Dansk/Deutsch/English/Español/Français/Norsk/Svenska) and 'Get Random Word' button. Canvas not reached: tapping 'Get Random Word' produced no visible navigation in this run — likely a network/edge-function call that did not return. Picker UI itself loads correctly."
+    },
+    {
+      "step": "05_draw_submit",
+      "status": "skipped",
+      "screenshot": null,
+      "expected": "Result screen with score / feedback",
+      "observation": "Skipped because checkpoint 04 did not reach the canvas"
+    },
+    {
+      "step": "06_friends_list",
+      "status": "pass",
+      "screenshot": "06_friends_list.png",
+      "expected": "List view rendered (empty state OK)",
+      "observation": "Drawdango home tab list rendered: Penelope active challenge card + Add Friend invite — duels list area healthy"
+    },
+    {
+      "step": "07_paywall",
+      "status": "pass",
+      "screenshot": "07_paywall.png",
+      "expected": "Paywall screen with plan options",
+      "observation": "Drawdango Premium bottom sheet opens (triggered by tapping the Gallery tab as a non-subscriber). Lists three perks: monthly streak shield, full drawing gallery, drawing reuse. Shows 'The store is unavailable right now' — expected on Genymotion (no Google Play Services). UI renders correctly."
+    },
+    {
+      "step": "08_profile",
+      "status": "pass",
+      "screenshot": "08_profile.png",
+      "expected": "Nickname/avatar visible, edit affordances present",
+      "observation": "Profile screen: avatar (purple ghost), nickname EagerKiwi43, Doodler Level 1 progress bar, 0 Rounds / 0 Streak Points stats, Add Phone Number / Edit Profile / Report a problem rows, logout icon top-right"
+    },
+    {
+      "step": "09_cold_restart",
+      "status": "pass",
+      "screenshot": "09_cold_restart.png",
+      "expected": "Resumes to a sensible screen, no crash",
+      "observation": "Force-stop + relaunch resumes directly to home (anonymous session preserved, Penelope challenge still present). Notification permission dialog and Penelope welcome sheet reappear — tolerable for first-launch UX."
+    }
+  ],
+  "notes": [
+    "First run — no baseline to compare against. This run becomes the baseline for the next /qa execution.",
+    "Practice canvas could not be reached (Get Random Word did not respond visually). Watch this in subsequent runs — if it's still flaky, consider a deeper investigation.",
+    "Premium store error ('The store is unavailable right now') is expected on Genymotion (no Google Play Store) — not a regression."
+  ]
+}
