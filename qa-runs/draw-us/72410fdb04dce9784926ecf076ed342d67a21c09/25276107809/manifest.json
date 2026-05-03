@@ -1,0 +1,95 @@
+{
+  "runId": "25276107809",
+  "commitSha": "72410fdb04dce9784926ecf076ed342d67a21c09",
+  "completedAt": "2026-05-03T10:11:00Z",
+  "device": "Genymotion Cloud — Google Pixel 7 (1080x2424, Android 14)",
+  "appPackage": "com.womm.drawdango",
+  "buildResult": "success",
+  "previousRun": {
+    "runId": "25249345890",
+    "commitSha": "95b195deb7eba3eeeabdcd0f0bd86d883b292872",
+    "completedAt": "2026-05-02T10:06:00Z"
+  },
+  "checkpoints": [
+    {
+      "step": "01_cold_launch",
+      "status": "pass",
+      "screenshot": "01_cold_launch.png",
+      "expected": "Auth/landing screen visible, no crash dialog",
+      "observation": "Drawdango landing screen rendered with logo, tagline 'Draw, Guess, Laugh!', generated nickname (GentlePanda15), 'Let's Go!' anonymous-login button, 'I have an account' link"
+    },
+    {
+      "step": "02_post_login",
+      "status": "pass",
+      "screenshot": "02_post_login.png",
+      "expected": "Profile-setup or home screen visible",
+      "observation": "Anonymous login succeeded — home screen visible behind a notification permission dialog (profile chip, Penelope challenge card)"
+    },
+    {
+      "step": "03_home_screen",
+      "status": "pass",
+      "screenshot": "03_home_screen.png",
+      "expected": "Home screen visible",
+      "observation": "Home rendered: GentlePanda15 profile card (Lvl 1, Doodler, 0/50 pts), Penelope new-challenge card with Guess! CTA, Add Friend invite, NEW 'Drawing Packs' carousel (Summer Escape FREE THIS MONTH, Around the House PREMIUM, Ocean...), bottom nav (Drawdango with notif badge / Practice / Gallery)"
+    },
+    {
+      "step": "04_open_practice",
+      "status": "pass",
+      "screenshot": "04_open_practice.png",
+      "expected": "Word prompt + drawing canvas visible",
+      "observation": "Practice tab opens to a NEW 'Meet Penelope' intro screen (vs prev baseline's language picker — flow now has an intro step). Tapping Start Practice reveals the language picker (matches prev baseline visual). Get Random Word now responds correctly (assigned 'broccoli'), and Start Drawing reaches the canvas with color picker, brush sizes, undo/redo/delete tools and Send it! CTA. End-to-end practice flow works (was a soft fail in prev baseline)"
+    },
+    {
+      "step": "05_draw_submit",
+      "status": "pass",
+      "screenshot": "05_draw_submit.png",
+      "expected": "Result screen with score / feedback",
+      "observation": "Result screen rendered: score 5, Penelope guessed 'star' (word was broccoli), encouraging feedback paragraph from Penelope, Share / New Word / Back to Home CTAs. Was SKIPPED in prev baseline because canvas was not reachable"
+    },
+    {
+      "step": "06_friends_list",
+      "status": "pass",
+      "screenshot": "06_friends_list.png",
+      "expected": "List view rendered (empty state OK)",
+      "observation": "Drawdango home tab list rendered: profile chip, Penelope active challenge card, Add Friend invite, Drawing Packs carousel — duels list area healthy"
+    },
+    {
+      "step": "07_paywall",
+      "status": "pass",
+      "screenshot": "07_paywall.png",
+      "expected": "Paywall screen with plan options",
+      "observation": "Drawdango Premium bottom sheet opens (triggered by tapping Gallery as non-subscriber). Now lists FOUR perks (vs three in prev baseline): five automatic streak shields/month, drawing gallery, reuse a saved drawing in any duel, NEW 'Every premium pack, forever' (tied to the new Drawing Packs feature). Shows 'The store is unavailable right now. Try again later.' — expected on Genymotion (no Google Play Services). Restore purchases link present"
+    },
+    {
+      "step": "08_profile",
+      "status": "pass",
+      "screenshot": "08_profile.png",
+      "expected": "Nickname/avatar visible, edit affordances present",
+      "observation": "Profile screen: avatar (purple ghost), nickname GentlePanda15, Doodler 0 pts Level 1 progress bar (next at 50 pts), 0 Rounds / 0 Streak Points stats, Add Phone Number / Edit Profile / Report a problem rows, logout icon top-right. (Practice rounds don't increment the Rounds counter — appears intentional, only duels count)"
+    },
+    {
+      "step": "09_cold_restart",
+      "status": "pass",
+      "screenshot": "09_cold_restart.png",
+      "expected": "Resumes to a sensible screen, no crash",
+      "observation": "Force-stop + relaunch resumes directly to home (anonymous session preserved as GentlePanda15, Penelope challenge still present, Drawing Packs still visible). Penelope welcome sheet reappears — same first-launch UX as prev baseline"
+    }
+  ],
+  "comparison": {
+    "regressions": [],
+    "improvements": [
+      "checkpoint 04 now reaches the canvas end-to-end (Get Random Word responds, Start Drawing opens canvas) — was a soft fail in prev baseline",
+      "checkpoint 05 now passes with a real result screen — was SKIPPED in prev baseline because canvas was unreachable"
+    ],
+    "uiAdditions": [
+      "Home screen: new 'Drawing Packs' carousel section (Summer Escape, Around the House, Ocean...). Matches the recent 'Foodie drawing pack' commit context",
+      "Practice flow: new 'Meet Penelope' intro screen before the language picker",
+      "Premium paywall: new 'Every premium pack, forever' perk (now four perks total)"
+    ]
+  },
+  "notes": [
+    "Compared against previous run 25249345890 (commit 95b195d, 2026-05-02). Current commit 72410fd 'feat: Foodie drawing pack + add-a-pack runbook' adds drawing packs UI which is reflected throughout the app",
+    "No status regressions and no genuine visual regressions — visible UI changes (Drawing Packs section, new paywall perk, Meet Penelope intro) are intentional product additions, not regressions",
+    "Premium store error ('The store is unavailable right now') is expected on Genymotion (no Google Play) — not a regression"
+  ]
+}
